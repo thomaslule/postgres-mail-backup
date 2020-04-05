@@ -6,13 +6,9 @@ import { sendMail } from "./sendMail";
 export async function doBackup() {
   logInfo("starting backup process...");
   const date = getDateString();
-  const filename = `backup-${date}.sql.gz`;
-  const filepath = `/tmp/${filename}`;
+  const filepath = `/tmp/backup-${date}.sql.gz`;
   await dbDumpToFile(filepath);
-  await sendMail({
-    filename,
-    filepath,
-  });
+  await sendMail(filepath);
   logInfo("backup process finished");
 }
 

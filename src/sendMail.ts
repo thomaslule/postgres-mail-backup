@@ -1,6 +1,5 @@
 import { createTransport } from "nodemailer";
 import { logInfo } from "./log";
-import { MailAttachment } from "./MailAttachment";
 
 const transporter = createTransport({
   host: process.env.MAILBACKUP_SMTP_HOST,
@@ -10,7 +9,7 @@ const transporter = createTransport({
   },
 });
 
-export async function sendMail(attachment: MailAttachment) {
+export async function sendMail(attachment: string) {
   logInfo("sending mail...");
   await transporter.sendMail({
     from: process.env.MAILBACKUP_FROM_MAIL,
@@ -19,8 +18,7 @@ export async function sendMail(attachment: MailAttachment) {
     text: "It's attached ;)",
     attachments: [
       {
-        filename: attachment.filename,
-        content: attachment.filepath,
+        path: attachment,
       },
     ],
   });
