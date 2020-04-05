@@ -6,9 +6,9 @@ export async function getDbDump(): Promise<Buffer> {
     exec(
       `pg_dump ${process.env.MAILBACKUP_DB_CONNECTION_STRING}`,
       { encoding: "buffer" },
-      (error, stdout) => {
+      (error, stdout, stderr) => {
         if (error) {
-          reject(JSON.stringify(error));
+          reject({ error: JSON.stringify(error), stdout: stderr.toString() });
           return;
         }
         resolve(stdout);
