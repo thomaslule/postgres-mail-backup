@@ -1,3 +1,4 @@
+import moment from "moment";
 import { dbDumpToFile } from "./dbDumpToFile";
 import { logInfo } from "./log";
 import { sendMail } from "./sendMail";
@@ -16,6 +17,5 @@ export async function doBackup() {
 }
 
 function getDateString() {
-  const date = new Date();
-  return `${date.getFullYear()}-${date.getMonth()}-${date.getDay()}`;
+  return moment().format("YYYY-MM-DD");
 }
