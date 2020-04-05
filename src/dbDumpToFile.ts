@@ -3,6 +3,7 @@ import { createReadStream, createWriteStream } from "fs";
 import { pipeline } from "stream";
 import { promisify } from "util";
 import { createGzip } from "zlib";
+import { logInfo } from "./log";
 
 const pipe = promisify(pipeline);
 
@@ -13,7 +14,8 @@ export async function dbDumpToFile(filepath: string): Promise<void> {
 }
 
 async function dumpToFile(filepath: string) {
-  return new Promise((resolve, reject) => {
+  logInfo("dumping db...");
+  await new Promise((resolve, reject) => {
     exec(
       `pg_dump ${process.env.MAILBACKUP_DB_CONNECTION_STRING} -f ${filepath}`,
       (error, stdout, stderr) => {
@@ -25,11 +27,14 @@ async function dumpToFile(filepath: string) {
       }
     );
   });
+  logInfo("db dumped");
 }
 
 async function zip(fromFile: string, toFile: string): Promise<void> {
+  logInfo("zipping db dump...");
   const gzip = createGzip();
   const source = createReadStream(fromFile);
   const destination = createWriteStream(toFile);
   await pipe(source, gzip, destination);
+  logInfo("db dump zipped");
 }

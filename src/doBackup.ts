@@ -1,7 +1,9 @@
 import { dbDumpToFile } from "./dbDumpToFile";
+import { logInfo } from "./log";
 import { sendMail } from "./sendMail";
 
 export async function doBackup() {
+  logInfo("starting backup process...");
   const date = getDateString();
   const filename = `backup-${date}.sql.gz`;
   const filepath = `/tmp/${filename}`;
@@ -10,6 +12,7 @@ export async function doBackup() {
     filename,
     filepath,
   });
+  logInfo("backup process finished");
 }
 
 function getDateString() {

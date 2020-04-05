@@ -1,14 +1,17 @@
 import { createTransport } from "nodemailer";
+import { logInfo } from "./log";
 import { MailAttachment } from "./MailAttachment";
 
+const transporter = createTransport({
+  host: process.env.MAILBACKUP_SMTP_HOST,
+  auth: {
+    user: process.env.MAILBACKUP_FROM_MAIL,
+    pass: process.env.MAILBACKUP_FROM_PASSWORD,
+  },
+});
+
 export async function sendMail(attachment: MailAttachment) {
-  const transporter = createTransport({
-    host: process.env.MAILBACKUP_SMTP_HOST,
-    auth: {
-      user: process.env.MAILBACKUP_FROM_MAIL,
-      pass: process.env.MAILBACKUP_FROM_PASSWORD,
-    },
-  });
+  logInfo("sending mail...");
   await transporter.sendMail({
     from: process.env.MAILBACKUP_FROM_MAIL,
     to: process.env.MAILBACKUP_TO_MAIL,
@@ -21,4 +24,5 @@ export async function sendMail(attachment: MailAttachment) {
       },
     ],
   });
+  logInfo("mail sent");
 }
