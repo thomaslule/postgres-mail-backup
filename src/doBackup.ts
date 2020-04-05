@@ -1,14 +1,13 @@
-import { dumpDbToFile } from "./dumpDbToFile";
+import { getDbDump } from "./getDbDump";
 import { sendMail } from "./sendMail";
 
 export async function doBackup() {
   const date = getDateString();
   const filename = `backup-${date}.sql.gz`;
-  const filepath = `${filename}`;
-  await dumpDbToFile(filepath);
+  const dumpBuffer = await getDbDump();
   await sendMail({
     filename,
-    content: filepath,
+    content: dumpBuffer,
   });
 }
 
