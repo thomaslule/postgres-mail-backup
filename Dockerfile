@@ -1,8 +1,8 @@
-FROM node:13-alpine
+FROM alpine:3.11
 
 WORKDIR /root
 
-RUN apk add --update --no-cache postgresql-client
+RUN apk add --update --no-cache postgresql-client nodejs npm
 
 COPY package*.json ./
 COPY tsconfig.json ./
