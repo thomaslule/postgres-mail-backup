@@ -1,0 +1,31 @@
+{
+  "name": "postgres-mail-backup",
+  "version": "0.0.1",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thomaslule/postgres-mail-backup.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thomaslule/postgres-mail-backup/issues"
+  },
+  "homepage": "https://github.com/thomaslule/postgres-mail-backup#readme",
+  "devDependencies": {
+    "@types/cron": "^1.7.2",
+    "@types/node": "^13.11.0",
+    "@types/nodemailer": "^6.4.0",
+    "prettier": "^2.0.2",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "cron": "^1.8.2",
+    "nodemailer": "^6.4.6"
+  }
+}
