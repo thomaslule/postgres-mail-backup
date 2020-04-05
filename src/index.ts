@@ -1,9 +1,7 @@
 import { CronJob } from "cron";
 import { doBackup } from "./doBackup";
 
-const everyMinute = "* * * * * * *";
-
-const job = new CronJob(everyMinute, async () => {
+const job = new CronJob(process.env.MAILBACKUP_CRON_SCHEDULE!, async () => {
   try {
     await doBackup();
   } catch (error) {
