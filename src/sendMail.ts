@@ -14,6 +14,11 @@ export async function sendMail(attachment: MailAttachment) {
     to: process.env.MAILBACKUP_TO_MAIL,
     subject: "Your database backup!",
     text: "It's attached ;)",
-    attachments: [attachment],
+    attachments: [
+      {
+        filename: attachment.filename,
+        content: attachment.filepath,
+      },
+    ],
   });
 }
