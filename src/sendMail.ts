@@ -1,19 +1,14 @@
 import { createTransport } from "nodemailer";
+import { getConfig } from "./config";
 import { logInfo } from "./log";
 
-const transporter = createTransport({
-  host: process.env.MAILBACKUP_SMTP_HOST,
-  auth: {
-    user: process.env.MAILBACKUP_FROM_MAIL,
-    pass: process.env.MAILBACKUP_FROM_PASSWORD,
-  },
-});
+const transporter = createTransport(JSON.parse(getConfig("SMTP_CONFIG")));
 
 export async function sendMail(attachment: string) {
   logInfo("sending mail...");
   await transporter.sendMail({
-    from: process.env.MAILBACKUP_FROM_MAIL,
-    to: process.env.MAILBACKUP_TO_MAIL,
+    from: getConfig("FROM_MAIL"),
+    to: getConfig("TO_MAIL"),
     subject: "Your database backup!",
     text: "It's attached ;)",
     attachments: [
