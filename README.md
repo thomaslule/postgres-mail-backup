@@ -67,3 +67,9 @@ The sender mail address.
 The recipient mail address.
 
 - required: true
+
+## Limitation
+
+This docker image uses `pg_dump` and if its version isn't exactly the same as the postgres server version, this tool will fail with the error `aborting because of server version mismatch`.
+
+In order to have the same `pg_dump` version as your database, you must rebuild this image from another alpine version, you can search an alpine branch that contain the right postgres version [here](https://pkgs.alpinelinux.org/packages?name=postgresql-client&branch=v3.11).
