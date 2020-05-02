@@ -41,7 +41,7 @@ jobs:
         if: success()
         id: prepare
         run: |
-          echo ::set-output name=docker_platforms::linux/arm/v7
+          echo ::set-output name=docker_platforms::linux/amd64,linux/arm/v7
           echo ::set-output name=docker_username::thomaslule
           echo ::set-output name=docker_image::thomaslule/postgres-mail-backup
           echo ::set-output name=hash::${GITHUB_SHA}
